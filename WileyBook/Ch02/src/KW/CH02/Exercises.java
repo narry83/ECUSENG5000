@@ -16,9 +16,7 @@ public class Exercises {
      * @param newItem The item to replace oldItem
      * @post All occurrences of oldItem have been replaced with newItem
      */
-    public static void replace(ArrayList<String> aList,
-            String oldItem,
-            String newItem) {
+    public static void replace(ArrayList<String> aList,String oldItem,String newItem) {
         int index = aList.indexOf(oldItem);
         while (index != -1) {
             aList.set(index, newItem);
