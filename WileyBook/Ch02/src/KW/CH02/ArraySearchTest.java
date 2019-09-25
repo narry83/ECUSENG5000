@@ -1,5 +1,7 @@
 package KW.CH02;
 
+import java.util.Arrays;
+
 public class ArraySearchTest {
 
 	public static void main(String[] args) {
@@ -14,6 +16,7 @@ public class ArraySearchTest {
 		
 		System.out.println("Search Result: "+found);
 		System.out.println("Array Length : "+list.length);
+		System.out.println("Array : "+Arrays.toString(list));
 	}
 
 }

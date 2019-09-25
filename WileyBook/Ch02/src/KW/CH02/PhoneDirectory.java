@@ -21,8 +21,7 @@ public class PhoneDirectory {
      * @param newNumber The new number to be assigned.
      * @return The old number, or if a new entry, null.
      */
-    public String addOrChangeEntry(String name,
-            String newNumber) {
+    public String addOrChangeEntry(String name,String newNumber) {
         int index = 0;
         String oldNumber = null;
         while (index < theDirectory.size()
