@@ -15,6 +15,8 @@ public class EX2_3_Directory_tester {
 		entry.addOrChangeEntry("Mary Cog", "755-124-1234");
 		entry.addOrChangeEntry("Jane Smith", "785-124-1234");
 		
+		entry.removeEntry("Jane Smith");
+		
 		
 		//System.out.println(entry);
 	}

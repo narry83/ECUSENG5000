@@ -1,6 +1,7 @@
 package KW.CH02;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Ex2_3DirectoryEntrytemp {
 	
@@ -22,10 +23,10 @@ public class Ex2_3DirectoryEntrytemp {
 		theDirectory.add(new Ex2_3DirectoryEntrytemp("Mary Cog", "755-124-1234"));
 		theDirectory.add(new Ex2_3DirectoryEntrytemp("Jane Smith", "785-124-1234"));
 		
-		int index = theDirectory.indexOf(new Ex2_3DirectoryEntrytemp(aName,""));
+		int index = theDirectory.indexOf(new Ex2_3DirectoryEntrytemp("Jane Smith",""));
 		
 		System.out.println(index);
-		
+				
 	}
 
 }
