@@ -32,6 +32,7 @@ public class Total
       while (in.hasNextDouble())
       {
          double value = in.nextDouble();
+         System.out.println(value);
          out.printf("%15.2f\n", value);
          total = total + value;
       }
