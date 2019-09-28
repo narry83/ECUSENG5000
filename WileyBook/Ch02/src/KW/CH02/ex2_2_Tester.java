@@ -21,6 +21,9 @@ public class ex2_2_Tester {
 		
 		ex2_2.delete(myList,"Larry" );
 		System.out.println(myList);
+		
+		System.out.println(myList.indexOf("Sally"));
+		
 
 	}
 

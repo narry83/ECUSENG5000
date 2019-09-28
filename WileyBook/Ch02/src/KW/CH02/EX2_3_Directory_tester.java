@@ -17,8 +17,8 @@ public class EX2_3_Directory_tester {
 		
 		entry.removeEntry("Jane Smith");
 		
-		
-		//System.out.println(entry);
+				
+		System.out.println(entry);
 	}
 
 }
