@@ -43,6 +43,7 @@ public class DataSetReader
       {
          throw new BadDataException("Length expected");
       }
+      
       int numberOfValues = in.nextInt();
       data = new double[numberOfValues];
 

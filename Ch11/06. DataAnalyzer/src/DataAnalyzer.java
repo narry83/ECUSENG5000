@@ -24,7 +24,10 @@ public class DataAnalyzer
             
             double[] data = reader.readFile(filename);
             double sum = 0;
-            for (double d : data) { sum = sum + d; }
+            
+            for (double d : data) { 
+            	sum = sum + d; 
+            	}
             System.out.println("The sum is " + sum);
             done = true;
          }
