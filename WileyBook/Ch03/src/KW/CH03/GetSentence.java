@@ -25,12 +25,13 @@ public class GetSentence {
             System.out.println("Enter a word or *** to quit");
             String word = in.next();
             /*<exercise chapter="3" section="7" type="programming" number="1">*/
-            if (TESTING)
-                System.out.println("!!! Next word is " + word + ", count is " + count);
-            if (word == "***") break;
+            if (TESTING) {                 
+            if (word.equals("***")) break;
+            System.out.println("!!! Next word is " + word + ", count is " + count);	
             stb.add(word);
             count++;
-        }
+            }
+        }    
         return stb.toString();
     }
     /*</listing>*/
