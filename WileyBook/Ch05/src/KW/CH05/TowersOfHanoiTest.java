@@ -6,7 +6,7 @@ import java.util.Scanner;
 /** Class that solves Towers of Hanoi problem.
  *  @author Koffman and Wolfgang
  **/
-public class TowersOfHanoi {
+public class TowersOfHanoiTest {
 
     /**
      * Recursive method for "moving" disks.
