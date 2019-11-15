@@ -5,7 +5,7 @@
 public class RecursiveLinearSearchTest {
 	/**
 	 * Tests classes RecursiveLinearSearch. Creates an object of the class and
-	 * prints on screen the index of the last Occurent of Target found in the Array.
+	 * prints on screen the index of the last occurrence of Target found in the Array.
 	 * 
 	 * @param args[] No control parameters
 	 */
