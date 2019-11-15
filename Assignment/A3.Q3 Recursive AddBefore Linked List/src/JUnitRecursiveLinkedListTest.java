@@ -1,18 +1,23 @@
-import static org.junit.Assert.*;
+/**
+ * Assignment 3 - Question 3 JUnit Method to test the Recursive Linked List to add
+ * a node before the target node.
+ * 
+ */
 
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * 
- */
-
-/**
- * @author nsnaraya
+ * A JUnit Test class to test the Recursive Linked List to add
+ * a node before the target node.
  *
  */
 public class JUnitRecursiveLinkedListTest {
 
+	/**
+	 * Test 1 - Test adding character s before v in the Linked List with data "java" 
+	 */	
 	@Test
 	public void RecursiveLinkedListTest() {
 		RecursiveLinkedList<String> jUnit = new RecursiveLinkedList<String>();
@@ -24,10 +29,13 @@ public class JUnitRecursiveLinkedListTest {
 		
 		//Test adding character s before v in the Linked List 		
 		jUnit.addBefore("v", "s");
-		//assertEquals("jasva",jUnit.toString());	
+		assertEquals("jasva",jUnit.toString());	
 		
 	}
 	
+	/**
+	 * Test 2 - Test adding character s before target which is not in the Linked List
+	 */		
 	@Test
 	public void RecursiveLinkedListTest2() {
 		RecursiveLinkedList<String> jUnit = new RecursiveLinkedList<String>();

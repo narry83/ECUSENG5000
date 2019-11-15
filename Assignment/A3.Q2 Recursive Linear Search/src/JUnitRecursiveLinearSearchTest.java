@@ -1,11 +1,23 @@
+/**
+ * Assignment 3 - Question 2 JUnit Method to test the Recursive Linear Search Method to find the Last
+ * Occurrence of a Target in an Array
+ * 
+ */
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * A JUnit Test class to test the Recursive Linear Search Method to find the Last
+ * Occurrence of a Target in an Array
+ *
+ */
 public class JUnitRecursiveLinearSearchTest {
-
 	
+	/**
+	 * Test 1 - Checks last position of Integer 50 in the Array of Numbers 
+	 */	
 	@Test
 	public void RecursiveLinearSearchTest() {
 		RecursiveLinearSearch jUnit = new RecursiveLinearSearch();
@@ -14,6 +26,9 @@ public class JUnitRecursiveLinearSearchTest {
 		assertEquals(9,position);
 	}
 	
+	/**
+	 * Test 2 - Checks last position of Integer 40 in the Array of Numbers  
+	 */	
 	@Test
 	public void RecursiveLinearSearchTest2() {
 		RecursiveLinearSearch jUnit = new RecursiveLinearSearch();
@@ -22,6 +37,9 @@ public class JUnitRecursiveLinearSearchTest {
 		assertEquals(3,position);
 	}
 	
+	/**
+	 * Test 3 - Checks if Integer 25 is found in the Array of Numbers  
+	 */	
 	@Test
 	public void RecursiveLinearSearchTest3() {
 		RecursiveLinearSearch jUnit = new RecursiveLinearSearch();
@@ -30,6 +48,9 @@ public class JUnitRecursiveLinearSearchTest {
 		assertEquals(-1,position);
 	}
 	
+	/**
+	 * Test 4 - Checks if String Rob is found in the Array of Strings
+	 */
 	@Test
 	public void RecursiveLinearSearchTest4() {
 		RecursiveLinearSearch jUnit = new RecursiveLinearSearch();
@@ -38,6 +59,9 @@ public class JUnitRecursiveLinearSearchTest {
 		assertEquals(6,position);
 	}
 	
+	/**
+	 * Test 5 - Checks if String Sam is found in the Array of Strings
+	 */
 	@Test
 	public void RecursiveLinearSearchTest5() {
 		RecursiveLinearSearch jUnit = new RecursiveLinearSearch();
@@ -46,6 +70,9 @@ public class JUnitRecursiveLinearSearchTest {
 		assertEquals(0,position);
 	}
 
+	/**
+	 * Test 6 - Checks if String Karen is found in the Array of Strings
+	 */
 	@Test
 	public void RecursiveLinearSearchTest6() {
 		RecursiveLinearSearch jUnit = new RecursiveLinearSearch();

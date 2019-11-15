@@ -1,5 +1,7 @@
 /**
- * Assignmnent 3 - Question 2 Driver method to test the Recursive Linear Search
+ * Assignment 3 - Question 2
+ * Driver Class to test the Recursive Linear Search Method to find the Last
+ * Occurrence of a Target in an Array
  * Method
  */
 public class RecursiveLinearSearchTest {

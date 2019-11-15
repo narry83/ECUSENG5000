@@ -1,5 +1,5 @@
 /**
- * Assignmnent 3 - Question 3 Recursive Linked List to add
+ * Assignment 3 - Question 3 Recursive Linked List to add
  * a node before the target node.
  * 
  **/

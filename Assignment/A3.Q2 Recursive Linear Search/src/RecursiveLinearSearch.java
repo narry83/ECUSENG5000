@@ -1,5 +1,6 @@
 /**
- * Assignmnent 3 - Question 2 Recursive Linear Search Method to find the Last
+ * Assignment 3 - Question 2 
+ * A class to implement Recursive Linear Search Method to find the Last
  * Occurrence of a Target in an Array
  * 
  */
@@ -13,12 +14,11 @@ public class RecursiveLinearSearch {
 	 * @param list   The array of Objects to Search
 	 * @return The index of target if found
 	 */
-
 	public static int searchLinear(Object[] list, Object target) {
-
 		return searchLinear(list, list.length - 1, target);
 	}
 
+	
 	/**
 	 * Recursive Linear Search Method to find the Last Occurrence of a Target in an
 	 * Array.
@@ -37,7 +37,8 @@ public class RecursiveLinearSearch {
 		else if (list[length].equals(target))
 			return length;
 		else
-			return searchLinear(list, length - 1, target);
+			//length -1 parameter below starts the search at the end of the Array
+			return searchLinear(list, length - 1, target); 
 	}
 
 }

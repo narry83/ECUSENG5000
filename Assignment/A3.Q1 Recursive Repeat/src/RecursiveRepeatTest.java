@@ -1,5 +1,8 @@
 /**
- * Assignmnent 3 - Question 1 Driver method to test the Recursive Repeat Method
+ * Assignment 3 - Question 1
+ * Driver class to test the Recursive Repeat Method that returns each
+ * character in the Argument String repeated.
+ *
  */
 public class RecursiveRepeatTest {
 	/**
@@ -15,7 +18,5 @@ public class RecursiveRepeatTest {
 		String repeat = recursion.repeat(input);
 		System.out.println("Output String: " + repeat);
 		System.out.println("Expected Output after Repeat: HHeelllloo");
-
 	}
-
 }
