@@ -19,7 +19,7 @@ public class JUnitRecursiveFunction {
 	 * Test 1 - Checks for when n is positive 
 	 */	
 	@Test
-	public void RecursiveFunctionTest() {
+	public void recursiveFunctionTest() {
 		RecursiveFunction power = new RecursiveFunction ();
 		double answer = power.recurPowerFunction(10, 2);		
 		assertEquals(100.0,answer,0.1);
@@ -30,7 +30,7 @@ public class JUnitRecursiveFunction {
 	 * Test 2 - Checks for when n is negative 
 	 */	
 	@Test
-	public void RecursiveFunctionTest2() {
+	public void recursiveFunctionTest2() {
 		RecursiveFunction power = new RecursiveFunction ();
 		double answer = power.recurPowerFunction(10, -2);		
 		assertEquals(0.01,answer,0.1);
@@ -41,7 +41,7 @@ public class JUnitRecursiveFunction {
 	 * Test 3 - Checks for when n is zero 
 	 */	
 	@Test
-	public void RecursiveFunctionTest3() {
+	public void recursiveFunctionTest3() {
 		RecursiveFunction power = new RecursiveFunction ();
 		double answer = power.recurPowerFunction(10, 0);		
 		assertEquals(1,answer,0.1);

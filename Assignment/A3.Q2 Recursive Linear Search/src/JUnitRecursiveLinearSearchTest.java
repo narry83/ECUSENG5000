@@ -19,7 +19,7 @@ public class JUnitRecursiveLinearSearchTest {
 	 * Test 1 - Checks last position of Integer 50 in the Array of Numbers 
 	 */	
 	@Test
-	public void RecursiveLinearSearchTest() {
+	public void recursiveLinearSearchTest() {
 		RecursiveLinearSearch jUnit = new RecursiveLinearSearch();
 		Integer[] arrayOfNumbers = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 50, 100 };
 		int position = jUnit.searchLinear(arrayOfNumbers, 50);
@@ -30,7 +30,7 @@ public class JUnitRecursiveLinearSearchTest {
 	 * Test 2 - Checks last position of Integer 40 in the Array of Numbers  
 	 */	
 	@Test
-	public void RecursiveLinearSearchTest2() {
+	public void recursiveLinearSearchTest2() {
 		RecursiveLinearSearch jUnit = new RecursiveLinearSearch();
 		Integer[] arrayOfNumbers = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 50, 100 };
 		int position = jUnit.searchLinear(arrayOfNumbers, 40);
@@ -41,7 +41,7 @@ public class JUnitRecursiveLinearSearchTest {
 	 * Test 3 - Checks if Integer 25 is found in the Array of Numbers  
 	 */	
 	@Test
-	public void RecursiveLinearSearchTest3() {
+	public void recursiveLinearSearchTest3() {
 		RecursiveLinearSearch jUnit = new RecursiveLinearSearch();
 		Integer[] arrayOfNumbers = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 50, 100 };
 		int position = jUnit.searchLinear(arrayOfNumbers, 25);

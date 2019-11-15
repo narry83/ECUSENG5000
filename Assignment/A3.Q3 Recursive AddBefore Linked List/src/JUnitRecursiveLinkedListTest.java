@@ -19,7 +19,7 @@ public class JUnitRecursiveLinkedListTest {
 	 * Test 1 - Test adding character s before v in the Linked List with data "java" 
 	 */	
 	@Test
-	public void RecursiveLinkedListTest() {
+	public void recursiveLinkedListTest() {
 		RecursiveLinkedList<String> jUnit = new RecursiveLinkedList<String>();
 		//Populate Linked List using the addBefore Method
 		jUnit.addBefore("a","");
@@ -37,7 +37,7 @@ public class JUnitRecursiveLinkedListTest {
 	 * Test 2 - Test adding character s before target which is not in the Linked List
 	 */		
 	@Test
-	public void RecursiveLinkedListTest2() {
+	public void recursiveLinkedListTest2() {
 		RecursiveLinkedList<String> jUnit = new RecursiveLinkedList<String>();
 		//Populate Linked List using the addBefore Method
 		jUnit.addBefore("o","");
