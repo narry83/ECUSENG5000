@@ -1,5 +1,5 @@
 /*<listing chapter="6" section="3">*/
-package KW.CH06;
+package KW.CH07.HuffmanCode.KW.CH06;
 
 import java.util.Scanner;
 import java.util.StringJoiner;

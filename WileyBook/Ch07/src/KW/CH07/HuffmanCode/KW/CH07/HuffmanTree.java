@@ -1,20 +1,19 @@
 /*<listing chapter="7" section="6">*/
-package KW.CH07;
+package KW.CH07.HuffmanCode.KW.CH07;
 
-import KW.CH06.BinaryTree;
+import KW.CH07.HuffmanCode.KW.CH06.BinaryTree;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Class to represent and build a Huffman tree
  * @author Koffman and Wolfgang */
-public class HuffmanTree extends KW.CH06.HuffmanTree implements Serializable {
+public class HuffmanTree extends KW.CH07.HuffmanCode.KW.CH06.HuffmanTree {
 
     /** The map between Characters and their coding */
     private Map<Character, BitString> codeMap;
@@ -23,12 +22,12 @@ public class HuffmanTree extends KW.CH06.HuffmanTree implements Serializable {
 
     /*<listing chapter="7" number="12">*/
     public static HuffData[] buildFreqTable(BufferedReader ins) {
-        Map<Character, Integer> frequencies =
-                new HashMap<Character, Integer>();  // Map of frequencies.
+        // Map of frequencies.
+        Map<Character, Integer> frequencies = new HashMap<>();  
         try {
             int nextChar;   // For storing the next character as an int
             while ((nextChar = ins.read()) != -1) {  // Test for more data
-                Character next = new Character((char) nextChar);
+                Character next = (char)nextChar;
                 // Get the current count and increment it.
                 Integer count = frequencies.get(next);
                 if (count == null) {
@@ -36,7 +35,6 @@ public class HuffmanTree extends KW.CH06.HuffmanTree implements Serializable {
                 } else {
                     count++;
                 }
-
                 // Store updated count.
                 frequencies.put(next, count);
             }
@@ -66,9 +64,9 @@ public class HuffmanTree extends KW.CH06.HuffmanTree implements Serializable {
      */
     public void buildCodeTable() {
         // Initialzie the code map
-        codeMap = new HashMap<Character, BitString>();
+        codeMap = new HashMap<>();
         // Call recursive method with empty bit string for code so far.
-        buildCodeTable(huffTree, new BitString());
+        buildCodeTable(huffTree, new BitStringBuilder());
     }
 
     /**
@@ -77,18 +75,18 @@ public class HuffmanTree extends KW.CH06.HuffmanTree implements Serializable {
      * @param tree The current tree root
      * @param code The code string so far
      */
-    private void buildCodeTable(BinaryTree<HuffData> tree, BitString code) {
+    private void buildCodeTable(BinaryTree<HuffData> tree, BitStringBuilder code) {
         // Get data at local root.
         HuffData datum = tree.getData();
-        if (datum.getSymbol() != null) {  // Test for leaf node.
+        if (datum.getSymbol() != '\u0000') {  // Test for leaf node.
             // Found a symbol, insert its code in the map.
-            codeMap.put(datum.getSymbol(), code);
+            codeMap.put(datum.getSymbol(), code.toBitString());
         } else {
             // Append 0 to code so far and traverse left. 
-            BitString leftCode = code.append(false);
+            BitStringBuilder leftCode = new BitStringBuilder(code).append(false);
             buildCodeTable(tree.getLeftSubtree(), leftCode);
             // Append 1 to code so far and traverse right.
-            BitString rightCode = code.append(true);
+            BitStringBuilder rightCode = new BitStringBuilder(code).append(true);
             buildCodeTable(tree.getRightSubtree(), rightCode);
         }
     }
@@ -99,8 +97,8 @@ public class HuffmanTree extends KW.CH06.HuffmanTree implements Serializable {
      * @param outs The output stream
      */
     public void encode(BufferedReader ins,
-            ObjectOutputStream outs) {
-        BitString result = new BitString();  // The complete bit string.
+            DataOutputStream outs) {
+        BitStringBuilder result = new BitStringBuilder();  // The complete bit string.
         try {
             int nextChar;
             while ((nextChar = ins.read()) != -1) {  // More data?
@@ -110,10 +108,8 @@ public class HuffmanTree extends KW.CH06.HuffmanTree implements Serializable {
                 BitString nextChunk = codeMap.get(next);
                 result = result.append(nextChunk);   // Append to result string.
             }
-            result.trimCapacity();
-
             // Write result to output file and close files.
-            outs.writeObject(result);
+            result.toBitString().write(outs);
             ins.close();
             outs.close();
         } catch (IOException ex) {
@@ -121,16 +117,80 @@ public class HuffmanTree extends KW.CH06.HuffmanTree implements Serializable {
             System.exit(1);
         }
     }
+    
+    /**
+     * Method to write a HuffmanTree to a DataOutputStream.
+     * @param outs The DataOutputStream
+     * @throws IOException if an IO error occurs
+     */
+    public void write(DataOutputStream outs) throws IOException {
+        BitStringBuilder bsb = new BitStringBuilder();
+        encodeHuffmanTree(huffTree, bsb);
+        bsb.toBitString().write(outs);
+    }
+    
+    /**
+     * Method to encode a HuffmanTree
+     * @param tree The local tree root
+     * @param bsb The BitStringBuilder containing the encoding
+     */
+    public void encodeHuffmanTree(BinaryTree<HuffData> tree, BitStringBuilder bsb) {
+        if (!tree.isLeaf()) {
+            bsb.append(false);
+            encodeHuffmanTree(tree.getLeftSubtree(), bsb);
+            encodeHuffmanTree(tree.getRightSubtree(), bsb);
+        } else {
+            bsb.append(true);
+            bsb.append(tree.getData().getSymbol());
+        }
+    }
+    
+    /**
+     * Method to decode a HuffmanTree
+     * @param bitString A BitString containing the encoding of the tree
+     * @return The decoded HuffmanTree
+     */
+    public static HuffmanTree decodeHuffmanTree(BitString bitString) {
+        BitString.BitStringIterator itr = bitString.iterator();
+        BinaryTree<HuffData> root = decodeHuffmanTree(itr);
+        HuffmanTree tree = new HuffmanTree();
+        tree.huffTree = root;
+        return tree;
+    }
+    
+    /**
+     * Method to decode a HuffmanTree
+     * @param itr A BitStringIterator iterating through the encoding
+     * @return A local root
+     */
+    private static BinaryTree<HuffData> decodeHuffmanTree(BitString.BitStringIterator itr) {
+        if (!itr.next()) {
+            BinaryTree<HuffData> left = decodeHuffmanTree(itr);
+            BinaryTree<HuffData> right = decodeHuffmanTree(itr);
+            HuffData sum = new HuffData(0, '\u0000');
+            return new BinaryTree<>(sum, left, right);
+        } else {
+            char c = '\u0000';
+            for (int i = 0; i < 16; i++) {
+                c <<= 1;
+                if (itr.next()) {
+                    c |= 1;
+                }
+            }
+            HuffData leaf = new HuffData(0, c);
+            return new BinaryTree<>(leaf, null, null);
+        }
+    }
 
     /*<exercise chapter="7" type="programming-project" number="1">*/
     /**
-     * Decode a message into a sequence of objects
-     * @param codedMessage The coded message as a BitString
-     * @return The decoded message as an array of Objects
+     * Decode a message from an input file
+     * @param ins The input stream containing the message
+     * @param out The BufferedWriter to write the decoded message
      */
-    public void decode(ObjectInputStream ins, BufferedWriter out) {
+    public void decode(DataInputStream ins, BufferedWriter out) {
         try {
-            BitString codedMessage = (BitString) ins.readObject();
+            BitString codedMessage = BitString.read(ins);
             BinaryTree<HuffData> currentTree = huffTree;
             for (int i = 0; i < codedMessage.size(); i++) {
                 if (codedMessage.get(i)) {
@@ -145,7 +205,7 @@ public class HuffmanTree extends KW.CH06.HuffmanTree implements Serializable {
                 }
             }
             out.close();
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             ex.printStackTrace();
             System.exit(1);
         }

@@ -1,4 +1,4 @@
-package KW.CH07;
+package KW.CH07.HuffmanCode.KW.CH07;
 
 /**
  * A BitSequence is a sequence of 0's and 1's represented as boolean values.

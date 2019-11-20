@@ -1,5 +1,5 @@
 /*<exercise chapter="7" type="programming-project" number="1">*/
-package KW.CH07;
+package KW.CH07.HuffmanCode.KW.CH07;
 
 import java.io.BufferedWriter;
 import java.io.DataInputStream;

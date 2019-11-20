@@ -1,8 +1,8 @@
-package KW.CH07;
+package KW.CH07.HuffmanCode.KW.CH07;
 
 import java.util.Arrays;
-import static KW.CH07.BitSequence.index;
-import static KW.CH07.BitSequence.mask;
+import static KW.CH07.HuffmanCode.KW.CH07.BitSequence.index;
+import static KW.CH07.HuffmanCode.KW.CH07.BitSequence.mask;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;

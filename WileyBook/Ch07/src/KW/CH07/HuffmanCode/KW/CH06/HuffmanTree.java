@@ -1,5 +1,5 @@
 /*<listing chapter="6" number="9">*/
-package KW.CH06;
+package KW.CH07.HuffmanCode.KW.CH06;
 
 import java.io.PrintStream;
 import java.util.PriorityQueue;
