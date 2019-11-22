@@ -13,7 +13,7 @@ public class Driver
 
 {
 	public static void main(String[] args) {
-		testDictionary();
+		//testDictionary();
 		testHashTable();
 		System.out.println("\n\nDone.");
 	} // end main
