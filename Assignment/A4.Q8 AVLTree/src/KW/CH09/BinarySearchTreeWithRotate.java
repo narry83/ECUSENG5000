@@ -38,6 +38,7 @@ public class BinarySearchTreeWithRotate<E extends Comparable<E>>
     }
 
     // Insert solution to programming exercise 1, section 1, chapter 9 here 
+    //Add the rotateLeft method to the BinarySearchTreeWithRotate class
     //Replicate for Left Rotation Operation
     /**
      * Method to perform a left rotation (rotateLeft).

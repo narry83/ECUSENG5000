@@ -1,5 +1,6 @@
-/*<exercise chapter="8" section="3" type="programming" number="2">*/
 package KW.CH08;
+/*<exercise chapter="8" section="3" type="programming" number="2">*/
+
 
 import java.util.*;
 

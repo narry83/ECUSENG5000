@@ -62,13 +62,6 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTreeWithRotate
 	/** Flag to indicate that height of tree has increased. */
 	private boolean increase;
 
-	// Insert solution to programming project 5, chapter -1 here
-	/**
-	 * Adding this Flag which is used in the delete method to indicate that height
-	 * of tree has decreased
-	 */
-	private boolean decrease;
-
 	// Methods
 	/**
 	 * add starter method.
@@ -121,9 +114,11 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTreeWithRotate
 			return localRoot; // Rebalance not needed.
 		} else { // item > data
 			// Insert solution to programming exercise 2, section 2, chapter 9 here
+			// Program the code in the add method for the case where
+			// item.compareTo(localRoot.data)> 0.
+
 			// When Item > data check if Height of tree has increased and if the Tree is
 			// Right Heavy then Rebalance the Right Tree
-
 			localRoot.right = add((AVLNode<E>) localRoot.right, item);
 			if (increase) {
 				incrementBalance(localRoot);
@@ -184,9 +179,10 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTreeWithRotate
 	/* </listing> */
 
 	// Insert solution to programming exercise 1, section 2, chapter 9 here
+	// Program the rebalanceRight method
+
 	// Replicating the logic to write the Rebalancing of the right tree when it is
 	// Right Heavy
-
 	/**
 	 * Method to rebalance right.
 	 * 
@@ -248,6 +244,8 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTreeWithRotate
 	}
 
 	// Insert solution to programming exercise 3, section 2, chapter 9 here
+	// Program the incrementBalance method
+
 	// Replicating the logic to write the incrementBalance to increment the Balance
 	// Field and then resetting the Increase Flag
 	/**
@@ -268,256 +266,4 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTreeWithRotate
 		}
 	}
 
-	// Insert solution to programming project 5, chapter -1 here
-	// Wrapper Method to delete the given object from the AVL Tree
-	/**
-	 * Wrapper for the Delete method. Removes the given object from the AVL tree.
-	 * 
-	 * @post The object is not in the tree
-	 * @param item - The object to be removed.
-	 * @return The object from the tree that was removed or null if the object was
-	 *         not in the tree.
-	 */
-	@Override
-	public E delete(E item) {
-		decrease = false;
-		root = delete((AVLNode<E>) root, item);
-		return deleteReturn;
-	}
-
-	/**
-	 * Recursive delete method. Removes the given object from the AVL tree.
-	 * 
-	 * @post The object is not in the tree and removeReturn is set to the object
-	 *       that was removed, otherwise it is set false.
-	 * @param localRoot The root of the local subtree
-	 * @param item      The item to be removed
-	 * @return The new root of the local subtree with the item removed.
-	 */
-	private AVLNode<E> delete(AVLNode<E> localRoot, E item) {
-		if (localRoot == null) { // item is not in tree
-			deleteReturn = null;
-			return localRoot;
-		}
-		if (item.compareTo(localRoot.data) == 0) {
-			// item is in the tree -- need to remove it
-			deleteReturn = localRoot.data;
-			return findReplacementNode(localRoot);
-		} else if (item.compareTo(localRoot.data) < 0) {
-			// item is < localRoot.data
-			localRoot.left = delete((AVLNode<E>) localRoot.left, item);
-			if (decrease) {
-				incrementBalance(localRoot);
-				if (localRoot.balance > AVLNode.RIGHT_HEAVY) {
-					return rebalanceRightL((AVLNode<E>) localRoot);
-				} else {
-					return localRoot;
-				}
-			} else {
-				return localRoot;
-			}
-		} else {
-			// item is > localRoot.data
-			localRoot.right = delete((AVLNode<E>) localRoot.right, item);
-			if (decrease) {
-				decrementBalance(localRoot);
-				if (localRoot.balance < AVLNode.LEFT_HEAVY) {
-					return rebalanceLeftR(localRoot);
-				} else {
-					return localRoot;
-				}
-			} else {
-				return localRoot;
-			}
-		}
-	}
-
-	/**
-	 * Function to find a replacement for a node that is being deleted from a binary
-	 * search tree. If the node has a null child, then the replacement is the other
-	 * child. If neither are null, then the replacement is the largest value less
-	 * than the item being removed.
-	 * 
-	 * @pre node is not null
-	 * @post a node is deleted from the tree
-	 * @param node The node to be deleted or replaced
-	 * @return null if both of node's children are null node.left if node.right is
-	 *         null node.right if node.left is null modified copy of node with its
-	 *         data field changed
-	 */
-	private AVLNode<E> findReplacementNode(AVLNode<E> node) {
-		if (node.left == null) {
-			decrease = true;
-			return (AVLNode<E>) node.right;
-		} else if (node.right == null) {
-			decrease = true;
-			return (AVLNode<E>) node.left;
-		} else {
-			if (node.left.right == null) {
-				node.data = node.left.data;
-				node.left = node.left.left;
-				incrementBalance(node);
-				return node;
-			} else {
-				node.data = findLargestChild((AVLNode<E>) node.left);
-				if (((AVLNode<E>) node.left).balance < AVLNode.LEFT_HEAVY) {
-					node.left = rebalanceLeft((AVLNode<E>) node.left);
-				}
-				if (decrease) {
-					incrementBalance(node);
-				}
-				return node;
-			}
-		}
-	}
-
-	/**
-	 * Find the node such that parent.right.right == null
-	 * 
-	 * @post The found node is removed from the tree and replaced by its left child
-	 *       (if any)
-	 * @param parent - The possible parent
-	 * @return the value of the found node
-	 */
-	private E findLargestChild(AVLNode<E> parent) {
-		if (parent.right.right == null) {
-			E returnValue = parent.right.data;
-			parent.right = parent.right.left;
-			decrementBalance(parent);
-			return returnValue;
-		} else {
-			E returnValue = findLargestChild((AVLNode<E>) parent.right);
-			if (((AVLNode<E>) parent.right).balance < AVLNode.LEFT_HEAVY) {
-				parent.right = rebalanceLeft((AVLNode<E>) parent.right);
-			}
-			if (decrease) {
-				decrementBalance(parent);
-			}
-			return returnValue;
-		}
-	}
-
-	/**
-	 * Rebalance Left with suport for deletion
-	 * 
-	 * @pre localRoot is the root of an AVL subtree that is more than one left
-	 *      heavy.
-	 * @post balance is restored and increase and decrease are updated as required
-	 * @param localRoot Root of the AVL subtree that needs rebalancing
-	 * @return a new localRoot
-	 */
-	private AVLNode<E> rebalanceLeftR(AVLNode<E> localRoot) {
-		// Obtain reference to left child
-		AVLNode<E> leftChild = (AVLNode<E>) localRoot.left;
-		// See if left-right heavy
-		if (leftChild.balance > AVLNode.BALANCED) {
-			// Obtain reference to left-right child
-			AVLNode<E> leftRightChild = (AVLNode<E>) leftChild.right;
-			// Adjust the balances to be their new values after
-			// the rotates are performed.
-			if (leftRightChild.balance < AVLNode.BALANCED) {
-				leftChild.balance = AVLNode.LEFT_HEAVY;
-				leftRightChild.balance = AVLNode.BALANCED;
-				localRoot.balance = AVLNode.BALANCED;
-			} else if (leftRightChild.balance > AVLNode.BALANCED) {
-				leftChild.balance = AVLNode.BALANCED;
-				leftRightChild.balance = AVLNode.BALANCED;
-				localRoot.balance = AVLNode.RIGHT_HEAVY;
-			} else {
-				leftChild.balance = AVLNode.BALANCED;
-				localRoot.balance = AVLNode.BALANCED;
-			}
-			// After the rotates the overall height will be
-			// reduced thus increase is now false, but
-			// decrease is now true.
-			increase = false;
-			decrease = true;
-			// Perform double rotation
-			localRoot.left = rotateLeft(leftChild);
-			return (AVLNode<E>) rotateRight(localRoot);
-		}
-		if (leftChild.balance < AVLNode.BALANCED) {
-			// In this case both the leftChild (the new root)
-			// and the root (new right child) will both be balanced
-			// after the rotate. Also the overall height will be
-			// reduced, thus increase will be fasle, but decrease
-			// will be true.
-			leftChild.balance = AVLNode.BALANCED;
-			localRoot.balance = AVLNode.BALANCED;
-			increase = false;
-			decrease = true;
-		} else {
-			// After the rotate the leftChild (new root) will
-			// be right heavy, and the local root (new right child)
-			// will be left heavy. The overall height of the tree
-			// will not change, thus increase and decrease remain
-			// unchanged.
-			leftChild.balance = AVLNode.RIGHT_HEAVY;
-			localRoot.balance = AVLNode.LEFT_HEAVY;
-		}
-		// Now rotate the
-		return (AVLNode<E>) rotateRight(localRoot);
-	}
-
-	/**
-	 * Rebalance Right with support for deletion
-	 * 
-	 * @pre localRoot is the root of an AVL subtree that is more than one right
-	 *      heavy.
-	 * @post balance is restored and increase is set false
-	 * @param localRoot Root of the AVL subtree that needs rebalancing
-	 * @return a new localRoot
-	 */
-	private AVLNode<E> rebalanceRightL(AVLNode<E> localRoot) {
-		// Obtain reference to right child
-		AVLNode<E> rightChild = (AVLNode<E>) localRoot.right;
-		// See if right-left heavy
-		if (rightChild.balance < AVLNode.BALANCED) {
-			// Obtain reference to right-left child
-			AVLNode<E> rightLeftChild = (AVLNode<E>) rightChild.left;
-			// Adjust the balances to be their new values after
-			// the rotates are performed.
-			if (rightLeftChild.balance > AVLNode.BALANCED) {
-				rightChild.balance = AVLNode.RIGHT_HEAVY;
-				rightLeftChild.balance = AVLNode.BALANCED;
-				localRoot.balance = AVLNode.BALANCED;
-			} else if (rightLeftChild.balance < AVLNode.BALANCED) {
-				rightChild.balance = AVLNode.BALANCED;
-				rightLeftChild.balance = AVLNode.BALANCED;
-				localRoot.balance = AVLNode.LEFT_HEAVY;
-			} else {
-				rightChild.balance = AVLNode.BALANCED;
-				localRoot.balance = AVLNode.BALANCED;
-			}
-			// After the rotates the overall height will be
-			// reduced thus increase is now false, but
-			// decrease is now true.
-			increase = false;
-			decrease = true;
-			// Perform double rotation
-			localRoot.right = rotateRight(rightChild);
-			return (AVLNode<E>) rotateLeft(localRoot);
-		}
-		if (rightChild.balance > AVLNode.BALANCED) {
-			// In this case both the rightChild (the new root)
-			// and the root (new left child) will both be balanced
-			// after the rotate. Also the overall height will be
-			// reduced, thus increase will be fasle, but decrease
-			// will be true.
-			rightChild.balance = AVLNode.BALANCED;
-			localRoot.balance = AVLNode.BALANCED;
-			increase = false;
-			decrease = true;
-		} else {
-			// After the rotate the rightChild (new root) will
-			// be left heavy, and the local root (new left child)
-			// will be right heavy. The overall height of the tree
-			// will not change, thus increase and decrease remain
-			// unchanged.
-			rightChild.balance = AVLNode.LEFT_HEAVY;
-			localRoot.balance = AVLNode.RIGHT_HEAVY;
-		}
-		// Now rotate the
-		return (AVLNode<E>) rotateLeft(localRoot);
-	}
 }

@@ -3,6 +3,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class ExceptionDemo {
+	
 	public static void main(String[] args) {
 		String inputValues = "two 42 43 three 44 ";
 		// This scanner reads the values from the given string.
