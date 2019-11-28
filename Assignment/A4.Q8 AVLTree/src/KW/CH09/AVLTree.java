@@ -62,6 +62,10 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTreeWithRotate
 	/** Flag to indicate that height of tree has increased. */
 	private boolean increase;
 
+	// Insert solution to programming project 5, chapter 9 here
+	/** Flag to indicate that height of tree has decreased */
+	private boolean decrease;
+
 	// Methods
 	/**
 	 * add starter method.
@@ -264,6 +268,202 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTreeWithRotate
 			// If now balanced, overall height has not increased.
 			increase = false;
 		}
+	}
+
+	// Insert solution to programming project 5, chapter 9 here
+	// Wrapper Method to delete the given object from the AVL Tree
+	/**
+	 * Delete Starter method.
+	 * 
+	 * @post The object is not in the tree
+	 * @param item - The object to be removed.
+	 * @return The object from the tree that was removed or null if the object was
+	 *         not in the tree.
+	 */
+	@Override
+	public E delete(E item) {
+		decrease = false;
+		root = delete((AVLNode<E>) root, item);
+		return deleteReturn;
+	}
+
+	/**
+	 * Recursive delete method. Removes the given object from the tree.
+	 * 
+	 * @post The object is not in the tree and removeReturn is set to the object
+	 *       that was removed, otherwise it is set false.
+	 * @param localRoot The root of the local subtree
+	 * @param item      The item to be removed
+	 * @return The new root of the local subtree with the item removed.
+	 */
+	private AVLNode<E> delete(AVLNode<E> localRoot, E item) {
+		if (localRoot == null) { // item is not in tree
+			deleteReturn = null;
+			return localRoot;
+		}
+		if (item.compareTo(localRoot.data) == 0) {
+			// item found in the tree -- need to remove it
+			deleteReturn = localRoot.data;
+			return findNodeToSwap(localRoot);
+		} else if (item.compareTo(localRoot.data) < 0) {
+			localRoot.left = delete((AVLNode<E>) localRoot.left, item);
+			if (decrease) {
+				incrementBalance(localRoot);
+				if (localRoot.balance > AVLNode.RIGHT_HEAVY) {
+					return rebalanceRightLeft((AVLNode<E>) localRoot);
+				} else {
+					return localRoot;
+				}
+			} else {
+				return localRoot;
+			}
+		} else {
+			localRoot.right = delete((AVLNode<E>) localRoot.right, item);
+			if (decrease) {
+				decrementBalance(localRoot);
+				if (localRoot.balance < AVLNode.LEFT_HEAVY) {
+					return rebalanceLeftRight(localRoot);
+				} else {
+					return localRoot;
+				}
+			} else {
+				return localRoot;
+			}
+		}
+	}
+
+	/**
+	 * Find a node to take the position of the deleted node.
+	 * 
+	 * @param node The node to be deleted
+	 * @return null if both of node is a leaf. Left if node.right is null.
+	 */
+	private AVLNode<E> findNodeToSwap(AVLNode<E> node) {
+		if (node.left == null) {
+			decrease = true;
+			return (AVLNode<E>) node.right;
+		} else if (node.right == null) {
+			decrease = true;
+			return (AVLNode<E>) node.left;
+		} else {
+			if (node.left.right == null) {
+				node.data = node.left.data;
+				node.left = node.left.left;
+				incrementBalance(node);
+				return node;
+			} else {
+				node.data = findLargestLeaf((AVLNode<E>) node.left);
+				if (((AVLNode<E>) node.left).balance < AVLNode.LEFT_HEAVY) {
+					node.left = rebalanceLeft((AVLNode<E>) node.left);
+				}
+				if (decrease) {
+					incrementBalance(node);
+				}
+				return node;
+			}
+		}
+	}
+
+	/**
+	 * Find the node that it is the largest Leaf node
+	 * 
+	 * @param parent - The node
+	 * @return the value of the current node
+	 */
+	private E findLargestLeaf(AVLNode<E> parent) {
+		if (parent.right.right == null) {
+			E returnValue = parent.right.data;
+			parent.right = parent.right.left;
+			decrementBalance(parent);
+			return returnValue;
+		} else {
+			E returnValue = findLargestLeaf((AVLNode<E>) parent.right);
+			if (((AVLNode<E>) parent.right).balance < AVLNode.LEFT_HEAVY) {
+				parent.right = rebalanceLeft((AVLNode<E>) parent.right);
+			}
+			if (decrease) {
+				decrementBalance(parent);
+			}
+			return returnValue;
+		}
+	}
+
+	/**
+	 * Function to do Rotation Left-Right
+	 * 
+	 * @param localRoot Root of the AVL subtree that needs rebalancing
+	 * @return localRoot
+	 */
+	private AVLNode<E> rebalanceLeftRight(AVLNode<E> localRoot) {
+		AVLNode<E> leftChild = (AVLNode<E>) localRoot.left;
+		if (leftChild.balance > AVLNode.BALANCED) {
+			AVLNode<E> leftRightChild = (AVLNode<E>) leftChild.right;
+			if (leftRightChild.balance < AVLNode.BALANCED) {
+				leftChild.balance = AVLNode.LEFT_HEAVY;
+				leftRightChild.balance = AVLNode.BALANCED;
+				localRoot.balance = AVLNode.BALANCED;
+			} else if (leftRightChild.balance > AVLNode.BALANCED) {
+				leftChild.balance = AVLNode.BALANCED;
+				leftRightChild.balance = AVLNode.BALANCED;
+				localRoot.balance = AVLNode.RIGHT_HEAVY;
+			} else {
+				leftChild.balance = AVLNode.BALANCED;
+				localRoot.balance = AVLNode.BALANCED;
+			}
+			increase = false;
+			decrease = true;
+			localRoot.left = rotateLeft(leftChild);
+			return (AVLNode<E>) rotateRight(localRoot);
+		}
+		if (leftChild.balance < AVLNode.BALANCED) {
+			leftChild.balance = AVLNode.BALANCED;
+			localRoot.balance = AVLNode.BALANCED;
+			increase = false;
+			decrease = true;
+		} else {
+			leftChild.balance = AVLNode.RIGHT_HEAVY;
+			localRoot.balance = AVLNode.LEFT_HEAVY;
+		}
+		return (AVLNode<E>) rotateRight(localRoot);
+	}
+
+	/**
+	 * Function to do Rotation Right-Left
+	 * 
+	 * @param localRoot Root of the AVL subtree that needs rebalancing
+	 * @return localRoot
+	 */
+	private AVLNode<E> rebalanceRightLeft(AVLNode<E> localRoot) {
+		AVLNode<E> rightChild = (AVLNode<E>) localRoot.right;
+		if (rightChild.balance < AVLNode.BALANCED) {
+			AVLNode<E> rightLeftChild = (AVLNode<E>) rightChild.left;
+			if (rightLeftChild.balance > AVLNode.BALANCED) {
+				rightChild.balance = AVLNode.RIGHT_HEAVY;
+				rightLeftChild.balance = AVLNode.BALANCED;
+				localRoot.balance = AVLNode.BALANCED;
+			} else if (rightLeftChild.balance < AVLNode.BALANCED) {
+				rightChild.balance = AVLNode.BALANCED;
+				rightLeftChild.balance = AVLNode.BALANCED;
+				localRoot.balance = AVLNode.LEFT_HEAVY;
+			} else {
+				rightChild.balance = AVLNode.BALANCED;
+				localRoot.balance = AVLNode.BALANCED;
+			}
+			increase = false;
+			decrease = true;
+			localRoot.right = rotateRight(rightChild);
+			return (AVLNode<E>) rotateLeft(localRoot);
+		}
+		if (rightChild.balance > AVLNode.BALANCED) {
+			rightChild.balance = AVLNode.BALANCED;
+			localRoot.balance = AVLNode.BALANCED;
+			increase = false;
+			decrease = true;
+		} else {
+			rightChild.balance = AVLNode.LEFT_HEAVY;
+			localRoot.balance = AVLNode.RIGHT_HEAVY;
+		}
+		return (AVLNode<E>) rotateLeft(localRoot);
 	}
 
 }
