@@ -33,6 +33,7 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTreeWithRotate
 		public static final int RIGHT_HEAVY = 1;
 		/** balance is right subtree height - left subtree height */
 		private int balance;
+		private String bal;
 
 		// Methods
 		/**
@@ -53,7 +54,16 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTreeWithRotate
 		 */
 		@Override
 		public String toString() {
-			return balance + " : " + super.toString();
+
+			if (balance > 0) {
+				bal = "+" + balance;
+			} else if (balance < 0) {
+				bal = "" + balance;
+			} else {
+				bal = " " + balance;
+			}
+
+			return bal + " : " + super.toString();
 		}
 	}
 

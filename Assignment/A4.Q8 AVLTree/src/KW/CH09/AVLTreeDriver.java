@@ -24,7 +24,7 @@ public class AVLTreeDriver {
 
 		System.out.println("Print Tree");
 		System.out.println(avlTree.toString());
-
+		
 		System.out.println("Print Tree after adding 65");
 		avlTree.add(65);
 		System.out.println(avlTree.toString());
@@ -58,10 +58,10 @@ public class AVLTreeDriver {
 			avlTreeString.add(i);
 		}
 
-		System.out.println("Print Tree");
+		System.out.println("Print String Tree");
 		System.out.println(avlTreeString.toString());
 
-		System.out.println("Print Tree after adding 0");
+		System.out.println("Print StringTree after adding history");
 		avlTreeString.add("history");
 		System.out.println(avlTreeString.toString());
 
