@@ -81,12 +81,12 @@ public class QuickSort {
 			if (up < down) { // if up is to the left of down.
 				// Exchange table[up] and table[down].
 				swap(table, up, down);
-				System.out.println("	Swap: " + table[up] + " " + table[down]);
+				System.out.println("     Swap: " + table[down] + " with " + table[up]);
 			}
 		} while (up < down); // Repeat while up is left of down.
 		// Exchange table[first] and table[down] thus putting the
 		// pivot value where it belongs.
-		System.out.println("Swap Pivot: " + table[first] + " " + table[down]);
+		System.out.println("Swap Pivot: " + table[first] + " with " + table[down]);
 		swap(table, first, down);
 		// Return the index of the pivot value.
 		return down;
@@ -158,6 +158,11 @@ public class QuickSort {
 		// Starting QuickSort Operations
 		System.out.println("Start Quick Sort \n");
 		sort(array);
+		//Print Sorted Array after Quick Sort Operation
+		System.out.println("\nSorted Array using Quick Sort.");
+		System.out.println(toString(array));
+		
+
 	}
 
 }

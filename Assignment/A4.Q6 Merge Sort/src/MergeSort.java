@@ -145,6 +145,7 @@ public class MergeSort {
 		System.out.println(toString(array));
 		mergeSort(array);
 		//Print Sorted Array after Merge Sort Operation
+		System.out.println("\nSorted Array using Merge Sort");
 		System.out.println(toString(array));
 
 	}

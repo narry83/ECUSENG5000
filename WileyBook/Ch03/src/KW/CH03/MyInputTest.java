@@ -24,6 +24,7 @@ public class MyInputTest {
 		ByteArrayInputStream testIn = new ByteArrayInputStream("3".getBytes());
 		System.setIn(testIn);
 		int n = MyInput.readInt("Enter weight", 2, 5);
+		System.out.println("The value entered was " + n);
 		assertEquals(n, 3);
 	}
 

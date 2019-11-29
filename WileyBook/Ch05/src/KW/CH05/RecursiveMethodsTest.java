@@ -17,10 +17,14 @@ public class RecursiveMethodsTest {
 		String str3= "Lamborghini";
 		System.out.println("\n");
 		//recur.printCharsReverse(str3);
-		*/
+		
 		//String str3= "Lamborghini";
 		String str4 = recur.stutter("Hello");
 		System.out.println(str4);
+		*/
+		
+		int n = recur.fibonacciStart(6);
+		System.out.println("Fibonacci of 5 is: "+n);
 				
 				
 		

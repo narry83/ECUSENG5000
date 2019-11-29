@@ -18,7 +18,7 @@ public class RecursiveRepeat {
 			return "";
 		} else {
 			char letter= inputString.charAt(0);
-			return letter + "" + inputString.charAt(0) + repeat(inputString.substring(1));
+			return letter + "" + letter + repeat(inputString.substring(1));
 		}
 	}
 
