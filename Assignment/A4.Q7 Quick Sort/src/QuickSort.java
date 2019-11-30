@@ -136,7 +136,7 @@ public class QuickSort {
 
 		// Create a Array List object of Type Integer
 		List<Integer> list = new ArrayList<Integer>();
-		list.add(55);
+		list.add(43);
 		list.add(50);
 		list.add(10);
 		list.add(40);

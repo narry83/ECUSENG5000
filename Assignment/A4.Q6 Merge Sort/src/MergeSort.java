@@ -122,8 +122,8 @@ public class MergeSort {
 
 		// Create a Array List object of Type Integer
 		List<Integer> list = new ArrayList<Integer>();
-		list.add(55);
-		list.add(50);
+		list.add(29);
+		list.add(72);
 		list.add(10);
 		list.add(40);
 		list.add(80);
