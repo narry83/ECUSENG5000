@@ -16,7 +16,7 @@ public class SelectionSort implements SortAlgorithm {
     public <T extends Comparable<T>>  void sort(T[] table) {
         int n = table.length;
         for (int fill = 0; fill < n - 1; fill++) {
-            // Invariant: table[0 . . . fill � 1] is sorted.
+            // Invariant: table[0 . . . fill  1] is sorted.
             int posMin = fill;
             for (int next = fill + 1; next < n; next++) {
                 // Invariant: table[posMin] is the smallest item in

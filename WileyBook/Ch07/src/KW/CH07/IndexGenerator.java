@@ -70,11 +70,11 @@ public class IndexGenerator {
 
     /*<exercise chapter="6" section="4" type="programming" number="4">*/
     public static void main(String args[]) {
-        if (args.length < 1) {
-            System.err.println("Usage: IndexGenerator <file>");
-            System.exit(1);
-        }
-        try (Scanner scan = new Scanner(new FileReader(args[0]))) {           
+        //if (args.length < 1) {
+            //System.err.println("Usage: IndexGenerator <file>");
+           // System.exit(1);
+       // }
+        try (Scanner scan = new Scanner(new FileReader("HPHWDiag_log.txt"))) {           
             IndexGenerator indexGenerator = new IndexGenerator();
             indexGenerator.buildIndex(scan);
             indexGenerator.showIndex();
